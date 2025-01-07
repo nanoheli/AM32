@@ -288,6 +288,14 @@
 #define USE_SERIAL_TELEMETRY
 #endif
 
+#ifdef RACOON_E230
+#define FIRMWARE_NAME "Racoon E230"
+#define FILE_NAME "RACOON_E230"
+#define DEAD_TIME 45
+#define HARDWARE_GROUP_GD_C
+#define TARGET_VOLTAGE_DIVIDER 110
+#endif
+
 /*********************************************************************AT32F421
  * targets*********************************************/
 
@@ -3049,6 +3057,35 @@
 #define PHASE_C_COMP 0x51 // CMP_PA5
 
 #endif
+
+#ifdef HARDWARE_GROUP_GD_C
+
+#define MCU_GDE23
+#define INPUT_PIN GPIO_PIN_2
+#define INPUT_PIN_PORT GPIOA
+#define IC_TIMER_CHANNEL TIMER_CH_0
+#define IC_TIMER_REGISTER TIMER14
+#define INPUT_DMA_CHANNEL DMA_CH4
+#define IC_DMA_IRQ_NAME DMA_Channel3_4_IRQn
+
+#define PHASE_A_GPIO_LOW GPIO_PIN_1
+#define PHASE_A_GPIO_PORT_LOW GPIOB
+#define PHASE_A_GPIO_HIGH GPIO_PIN_10
+#define PHASE_A_GPIO_PORT_HIGH GPIOA
+
+#define PHASE_B_GPIO_LOW GPIO_PIN_0
+#define PHASE_B_GPIO_PORT_LOW GPIOB
+#define PHASE_B_GPIO_HIGH GPIO_PIN_9
+#define PHASE_B_GPIO_PORT_HIGH GPIOA
+
+#define PHASE_C_GPIO_LOW GPIO_PIN_7
+#define PHASE_C_GPIO_PORT_LOW GPIOA
+#define PHASE_C_GPIO_HIGH GPIO_PIN_8
+#define PHASE_C_GPIO_PORT_HIGH GPIOA
+
+#define PHASE_A_COMP 0x61 // CMP_PA0
+#define PHASE_B_COMP 0x51 // CMP_PA5
+#define PHASE_C_COMP 0x41 // CMP_PA4
 
 #ifdef HARDWARE_GROUP_AT_B
 
