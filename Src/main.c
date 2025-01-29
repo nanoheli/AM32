@@ -400,7 +400,7 @@ char play_tone_flag = 0;
 typedef enum { GPIO_PIN_RESET = 0U,
     GPIO_PIN_SET } GPIO_PinState;
 
-uint16_t startup_max_duty_cycle = 200;
+uint16_t startup_max_duty_cycle = 400;
 uint16_t minimum_duty_cycle = DEAD_TIME;
 uint16_t stall_protect_minimum_duty = DEAD_TIME;
 char desync_check = 0;
@@ -1758,8 +1758,11 @@ int main(void)
 #endif
 
 #ifdef USE_INVERTED_HIGH
-  min_startup_duty = min_startup_duty + 100;
-  minimum_duty_cycle = minimum_duty_cycle + 100;
+    min_startup_duty = min_startup_duty + 100;
+    minimum_duty_cycle = minimum_duty_cycle + 100;
+#elif defined(START_BOOST)
+    min_startup_duty = min_startup_duty + START_BOOST;
+    minimum_duty_cycle = minimum_duty_cycle + START_BOOST;
 #endif
 
 

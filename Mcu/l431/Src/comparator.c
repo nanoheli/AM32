@@ -3,6 +3,7 @@
 #include "common.h"
 
 uint8_t medium_speed_set;
+COMP_TypeDef* active_COMP = MAIN_COMP;
 
 uint8_t getCompOutputLevel() { return LL_COMP_ReadOutputLevel(MAIN_COMP);}
 
