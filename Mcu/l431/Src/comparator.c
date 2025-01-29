@@ -2,6 +2,7 @@
 #include "targets.h"
 #include "common.h"
 
+uint8_t medium_speed_set;
 
 uint8_t getCompOutputLevel() { return LL_COMP_ReadOutputLevel(MAIN_COMP);}
 
@@ -16,9 +17,18 @@ void enableCompInterrupts(){
 }
 
 void changeCompInput() {
+	if((average_interval < 400) && medium_speed_set){
+	LL_COMP_SetPowerMode(active_COMP, LL_COMP_POWERMODE_HIGHSPEED);
+	medium_speed_set = 0;
+	}
+	if((average_interval > 600) && !medium_speed_set){
+	LL_COMP_SetPowerMode(active_COMP, LL_COMP_POWERMODE_MEDIUMSPEED);
+	medium_speed_set = 1;
+	}
+	
 	if (step == 1 || step == 4) {   // c floating
 		LL_COMP_ConfigInputs(MAIN_COMP, PHASE_C_COMP , COMMON_COMP);
-  }
+  	}
 	if (step == 2 || step == 5) {     // a floating
 	LL_COMP_ConfigInputs(MAIN_COMP, PHASE_A_COMP, COMMON_COMP);
 	}
