@@ -246,10 +246,11 @@ void MX_GPIO_Init(void) { }
 void UN_TIM_Init(void)
 {
     rcu_periph_clock_enable(RCU_GPIOB);
+    rcu_periph_clock_enable(RCU_GPIOA); //input pin may also be PA2IC_DMA_IRQ_NAME
     rcu_periph_clock_enable(RCU_DMA);
 
-    gpio_output_options_set(GPIOB, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, INPUT_PIN);
-    gpio_af_set(INPUT_PIN_PORT, GPIO_AF_1, INPUT_PIN);
+    gpio_output_options_set(INPUT_PIN_PORT, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, INPUT_PIN);
+    gpio_af_set(INPUT_PIN_PORT, INPUT_PIN_AF, INPUT_PIN);
 
     dma_periph_address_config(INPUT_DMA_CHANNEL,
         (uint32_t)&TIMER_CH0CV(IC_TIMER_REGISTER));
@@ -270,8 +271,6 @@ void UN_TIM_Init(void)
     NVIC_EnableIRQ(IC_DMA_IRQ_NAME);
     rcu_periph_clock_enable(RCU_TIMER2);
     rcu_periph_clock_enable(RCU_TIMER14);
-    TIMER_CAR(IC_TIMER_REGISTER) = 0xFFFF;
-    TIMER_PSC(IC_TIMER_REGISTER) = 10;
     TIMER_CAR(IC_TIMER_REGISTER) = 0xFFFF;
     TIMER_PSC(IC_TIMER_REGISTER) = 10;
     /* enable a TIMER */
